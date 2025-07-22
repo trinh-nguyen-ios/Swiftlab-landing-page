@@ -21,10 +21,12 @@ jobs:
       - name: Checkout source
         uses: actions/checkout@v4
 
+      # Optional: Add a build step here if needed (e.g., npm run build)
+
       - name: Upload static site
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ./build
+          path: ./build  # ✅ This must match the folder that contains index.html
 
   deploy:
     needs: build
