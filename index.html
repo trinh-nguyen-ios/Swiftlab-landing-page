@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>Swiftlab | Engineering Scalable Excellence</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+  <style>
+    @import url('https://fonts.cdnfonts.com/css/geist');
+
+    body {
+      font-family: 'Geist', sans-serif;
+      background-color: #131313;
+      color: #e2e2e2;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    }
+
+    .glass-card {
+      background: rgba(10, 10, 10, 0.6);
+      backdrop-filter: blur(12px);
+      border: 1px solid #1f1f1f;
+    }
+
+    .hero-glow {
+      position: absolute;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(251, 89, 63, 0.15) 0%, rgba(19, 19, 19, 0) 70%);
+      z-index: -1;
+      filter: blur(60px);
+    }
+
+    .bento-grid {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 24px;
+    }
+
+    .gradient-text {
+      background: linear-gradient(135deg, #ffb4a6 0%, #fb593f 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .premium-border {
+      border: 1px solid transparent;
+      background: linear-gradient(#0a0a0a, #0a0a0a) padding-box,
+                  linear-gradient(to bottom right, #333, #111) border-box;
+    }
+
+    .tech-card-glow {
+      position: relative;
+      overflow: hidden;
+    }
+    .tech-card-glow::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 50% 0%, rgba(251, 89, 63, 0.08), transparent 70%);
+      pointer-events: none;
+    }
+
+    .scroll-reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .scroll-reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Infinite marquee */
+    .logo-marquee {
+      overflow: hidden;
+      position: relative;
+    }
+    .logo-marquee-track {
+      display: flex;
+      align-items: center;
+      width: max-content;
+      gap: 0;
+      will-change: transform;
+    }
+    .logo-marquee-track:hover {
+      animation-play-state: paused;
+    }
+    .logo-marquee-fade-left {
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 80px;
+      background: linear-gradient(to right, #131313, transparent);
+      z-index: 10;
+      pointer-events: none;
+    }
+    .logo-marquee-fade-right {
+      position: absolute;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      width: 80px;
+      background: linear-gradient(to left, #131313, transparent);
+      z-index: 10;
+      pointer-events: none;
+    }
+  </style>
+  <script>
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "error-container": "#93000a",
+            "secondary-fixed": "#e2e2e2",
+            "surface-tint": "#ffb4a6",
+            "surface-dim": "#131313",
+            "on-background": "#e2e2e2",
+            "surface-container-low": "#1b1b1b",
+            "inverse-primary": "#b52613",
+            "on-secondary-container": "#b4b5b5",
+            "surface-bright": "#393939",
+            "on-surface": "#e2e2e2",
+            "primary-fixed": "#ffdad4",
+            "on-secondary-fixed-variant": "#454747",
+            "error": "#ffb4ab",
+            "secondary": "#c6c6c7",
+            "surface-container-lowest": "#0e0e0e",
+            "surface-container": "#1f1f1f",
+            "background": "#131313",
+            "primary": "#ffb4a6",
+            "tertiary-fixed": "#afecff",
+            "surface": "#131313",
+            "surface-container-high": "#2a2a2a",
+            "secondary-fixed-dim": "#c6c6c7",
+            "tertiary": "#68d5f1",
+            "on-primary-fixed-variant": "#900d00",
+            "on-primary-fixed": "#3f0300",
+            "on-tertiary-fixed": "#001f26",
+            "inverse-surface": "#e2e2e2",
+            "secondary-container": "#454747",
+            "on-secondary": "#2f3131",
+            "on-surface-variant": "#e3beb8",
+            "on-primary-container": "#5a0500",
+            "primary-container": "#fb593f",
+            "surface-container-highest": "#353535",
+            "tertiary-container": "#1d9eb9",
+            "outline": "#aa8983",
+            "on-error-container": "#ffdad6",
+            "on-error": "#690005",
+            "tertiary-fixed-dim": "#68d5f1",
+            "outline-variant": "#5a403c",
+            "primary-fixed-dim": "#ffb4a6",
+            "inverse-on-surface": "#303030",
+            "on-tertiary-fixed-variant": "#004e5d",
+            "on-secondary-fixed": "#1a1c1c",
+            "on-tertiary-container": "#002e38",
+            "surface-variant": "#353535",
+            "on-primary": "#660700",
+            "on-tertiary": "#003641"
+          },
+          borderRadius: {
+            DEFAULT: "0.125rem",
+            lg: "0.25rem",
+            xl: "0.5rem",
+            full: "0.75rem"
+          },
+          spacing: {
+            gutter: "24px",
+            "container-max-width": "1200px",
+            "margin-desktop": "40px",
+            unit: "4px",
+            "margin-mobile": "16px"
+          },
+          fontFamily: {
+            "body-md": ["Geist"],
+            "headline-xl": ["Geist"],
+            "headline-md": ["Geist"],
+            "label-md": ["Geist"],
+            "label-sm": ["Geist"],
+            "headline-lg": ["Geist"],
+            "headline-lg-mobile": ["Geist"],
+            "body-lg": ["Geist"]
+          },
+          fontSize: {
+            "body-md": ["14px", { lineHeight: "1.5", fontWeight: "400" }],
+            "headline-xl": ["48px", { lineHeight: "1.1", letterSpacing: "-0.04em", fontWeight: "700" }],
+            "headline-md": ["20px", { lineHeight: "1.4", letterSpacing: "-0.01em", fontWeight: "600" }],
+            "label-md": ["12px", { lineHeight: "1.2", letterSpacing: "0.02em", fontWeight: "500" }],
+            "label-sm": ["11px", { lineHeight: "1.2", letterSpacing: "0.05em", fontWeight: "600" }],
+            "headline-lg": ["32px", { lineHeight: "1.2", letterSpacing: "-0.03em", fontWeight: "600" }],
+            "headline-lg-mobile": ["24px", { lineHeight: "1.2", letterSpacing: "-0.02em", fontWeight: "600" }],
+            "body-lg": ["16px", { lineHeight: "1.6", fontWeight: "400" }]
+          }
+        },
+      },
+    }
+  </script>
+</head>
+<body class="bg-background text-on-surface">
+
+<!-- TopNavBar -->
+<nav class="fixed top-0 w-full bg-background/80 backdrop-blur-xl border-b border-outline-variant/30 z-50">
+  <div class="flex justify-between items-center px-gutter py-4 max-w-container-max-width mx-auto">
+    <div class="font-headline-md text-headline-md font-bold text-on-surface tracking-tighter">Swiftlab</div>
+    <div class="hidden md:flex items-center space-x-8">
+      <a class="text-primary font-bold border-b-2 border-primary pb-1 font-label-md text-label-md" href="#services">Services</a>
+      <a class="text-on-surface-variant font-medium hover:text-primary transition-colors duration-200 font-label-md text-label-md" href="#portfolio">Portfolio</a>
+      <a class="text-on-surface-variant font-medium hover:text-primary transition-colors duration-200 font-label-md text-label-md" href="#standards">Process</a>
+      <a class="text-on-surface-variant font-medium hover:text-primary transition-colors duration-200 font-label-md text-label-md" href="#reviews">Standards</a>
+    </div>
+    <div class="flex items-center space-x-4">
+      <a href="https://calendly.com/nguyen-the-trinh-ios/30min" target="_blank" rel="noopener" class="hidden md:block text-on-surface-variant font-label-md text-label-md hover:text-primary transition-colors">Contact Us</a>
+      <a href="https://calendly.com/nguyen-the-trinh-ios/30min" target="_blank" rel="noopener" class="bg-primary-container text-on-primary-container px-4 py-2 rounded-xl font-label-md text-label-md font-bold hover:opacity-80 active:scale-95 transition-all">Get Started</a>
+    </div>
+  </div>
+</nav>
+
+<main class="pt-24 overflow-hidden">
+
+  <!-- Hero Section -->
+  <section class="scroll-reveal relative max-w-container-max-width mx-auto px-gutter py-20 md:py-32 flex flex-col items-center text-center">
+    <div class="hero-glow top-0 left-1/2 -translate-x-1/2 opacity-40"></div>
+    <div class="mb-6 px-4 py-1 rounded-full border border-outline-variant/30 bg-surface-container-low/50 backdrop-blur-sm">
+      <span class="text-primary font-label-sm text-label-sm uppercase tracking-widest">New: AI Engineering Stack 2.0</span>
+    </div>
+    <h1 class="font-headline-xl text-headline-xl max-w-4xl mb-6">
+      Engineering <span class="gradient-text">Scalable Excellence</span> for Modern Startups.
+    </h1>
+    <p class="font-body-lg text-body-lg text-on-secondary-container max-w-2xl mb-12">
+      We partner with ambitious founders to build high-performance Apple-native experiences that scale with your growth.
+    </p>
+    <div class="flex flex-col sm:flex-row gap-4 mb-20">
+      <a href="https://calendly.com/nguyen-the-trinh-ios/30min" target="_blank" rel="noopener" class="bg-primary-container text-on-primary-container px-8 py-4 rounded-xl font-headline-md text-headline-md font-bold shadow-lg shadow-primary/20 hover:scale-105 transition-transform">Start Your Project</a>
+      <a href="#portfolio" class="border border-outline-variant/50 text-on-surface px-8 py-4 rounded-xl font-headline-md text-headline-md font-bold hover:bg-surface-container transition-colors">View Portfolio</a>
+      <a href="https://upwork.com/freelancers/trinhnguyenios" target="_blank" rel="noopener" class="border border-outline-variant/50 text-on-surface px-8 py-4 rounded-xl font-headline-md text-headline-md font-bold hover:bg-surface-container transition-colors flex items-center justify-center gap-2">
+        <span class="w-2 h-2 rounded-full bg-[#14a800]"></span>Upwork Profile
+      </a>
+    </div>
+    <!-- Floating Mockups -->
+    <div class="relative w-full max-w-5xl mt-12 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+      <div class="relative group">
+        <div class="absolute inset-0 bg-primary/10 blur-3xl rounded-full scale-75 group-hover:scale-100 transition-transform duration-700"></div>
+        <img alt="iOS Music App Interface" class="relative rounded-2xl border border-outline-variant/30 shadow-2xl transform rotate-1 group-hover:rotate-0 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida/ADBb0uhONGSBq1128KlR2Xe_wZ9an9KPiTtezEQCcFEtD124iRowWA47EDuoIb9Wtmct4Vdz9RBv6FlOue5JBF4mcNPWTI8op8ZNpC_nZMqlrJNUYUHmOwScYxsHlqYExEoQjb1741A8GxxjpciGW8Or9GL7ly7Wtq3DQiup9tkj5Kk4tmdEXjkcx86Kchy3cHlFYvWFn1Buii5TsX1WO0ypyYzw7UhOCWfSDU9ZSSXPwRtaqJBHqDWf_tHY38E" />
+      </div>
+      <div class="relative group">
+        <div class="absolute inset-0 bg-tertiary/10 blur-3xl rounded-full scale-75 group-hover:scale-100 transition-transform duration-700"></div>
+        <img alt="iPad Development Environment" class="relative rounded-2xl border border-outline-variant/30 shadow-2xl transform -rotate-1 group-hover:rotate-0 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida/ADBb0ugeryCqj7vGSsLgg4CtEq9Ox4vRs9-dwsFpHyL6pQXom8figrfENUs15K3XvddqO7uU1R_Too_m3L3xSNelBvPwWcaiLrvNIM_GFDEaXj-jTwAci4VM65eXLH3-g53ZBdlbhaHDwAIjwWKEItACDobMltsv9IYFGLUsTQn4DoMzG15Eso79ejf018zjApQPv4EvPfMOVjMg2gJdQwJGIkYJXndd714LHjpli4lkkJrdBflLH_NHmqOhYg" />
+      </div>
+    </div>
+  </section>
+
+  <!-- Trust Stats Section -->
+  <section class="scroll-reveal bg-surface-container-lowest border-y border-outline-variant/20 py-12">
+    <div class="max-w-container-max-width mx-auto px-gutter flex flex-col md:flex-row justify-between items-center gap-8 text-center md:text-left">
+      <div class="flex flex-col">
+        <span class="font-headline-lg text-headline-lg text-primary">10+ Years</span>
+        <span class="font-label-sm text-label-sm text-on-secondary-container uppercase">of Experience</span>
+      </div>
+      <div class="hidden md:block w-px h-12 bg-outline-variant/30"></div>
+      <div class="flex flex-col">
+        <span class="font-headline-lg text-headline-lg text-primary">50+ Projects</span>
+        <span class="font-label-sm text-label-sm text-on-secondary-container uppercase">Launched Globally</span>
+      </div>
+      <div class="hidden md:block w-px h-12 bg-outline-variant/30"></div>
+      <div class="flex flex-col">
+        <span class="font-headline-lg text-headline-lg text-primary">100% Client</span>
+        <span class="font-label-sm text-label-sm text-on-secondary-container uppercase">Satisfaction Rate</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Who We Help -->
+  <section class="scroll-reveal max-w-container-max-width mx-auto px-gutter py-24">
+    <div class="flex flex-col md:flex-row justify-between items-end mb-16 gap-4">
+      <div class="max-w-xl">
+        <h2 class="font-headline-lg text-headline-lg mb-4">Strategic Partners for <span class="text-primary">High-Growth</span> Teams.</h2>
+        <p class="font-body-md text-body-md text-on-secondary-container">We specialize in turning complex technical challenges into competitive advantages for founders who value engineering integrity.</p>
+      </div>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div class="premium-border p-8 rounded-xl flex flex-col gap-4 hover:-translate-y-2 transition-transform duration-300">
+        <span class="material-symbols-outlined text-primary text-4xl">rocket_launch</span>
+        <h3 class="font-headline-md text-headline-md">Venture-Backed Startups</h3>
+        <p class="font-body-md text-body-md text-on-secondary-container">Rapid MVP construction and robust scaling strategies for teams that need to move fast without breaking things.</p>
+      </div>
+      <div class="premium-border p-8 rounded-xl flex flex-col gap-4 hover:-translate-y-2 transition-transform duration-300">
+        <span class="material-symbols-outlined text-primary text-4xl">corporate_fare</span>
+        <h3 class="font-headline-md text-headline-md">Enterprise SaaS</h3>
+        <p class="font-body-md text-body-md text-on-secondary-container">Modernizing legacy architectures and optimizing mission-critical systems for peak performance and security.</p>
+      </div>
+      <div class="premium-border p-8 rounded-xl flex flex-col gap-4 hover:-translate-y-2 transition-transform duration-300">
+        <span class="material-symbols-outlined text-primary text-4xl">engineering</span>
+        <h3 class="font-headline-md text-headline-md">Technical Founders</h3>
+        <p class="font-body-md text-body-md text-on-secondary-container">A senior engineering extension for complex builds requiring deep expertise in system design and native platforms.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services (Bento Grid) -->
+  <section id="services" class="scroll-reveal bg-surface-container py-24">
+    <div class="max-w-container-max-width mx-auto px-gutter">
+      <h2 class="font-headline-lg text-headline-lg mb-16 text-center">Engineering <span class="text-primary">Disciplines</span></h2>
+      <div class="bento-grid">
+        <div class="col-span-12 md:col-span-8 glass-card p-10 rounded-2xl flex flex-col justify-end min-h-[300px] group overflow-hidden relative">
+          <div class="absolute top-0 right-0 p-12 opacity-10 group-hover:opacity-20 transition-opacity">
+            <span class="material-symbols-outlined text-[120px]">smartphone</span>
+          </div>
+          <h3 class="font-headline-lg text-headline-lg mb-2">Native iOS and Apple Development</h3>
+          <p class="font-body-md text-body-md text-on-secondary-container max-w-md">Leveraging Swift and Objective-C to build deep system integrations that feel like they belong on the platform.</p>
+        </div>
+        <div class="col-span-12 md:col-span-4 glass-card p-10 rounded-2xl flex flex-col items-center justify-center text-center gap-4">
+          <span class="material-symbols-outlined text-primary text-5xl">speed</span>
+          <h3 class="font-headline-md text-headline-md">Performance Optimization</h3>
+          <p class="font-body-md text-body-md text-on-secondary-container">Shaving milliseconds off boot times and ensuring 120Hz smooth scrolling.</p>
+        </div>
+        <div class="col-span-12 md:col-span-4 glass-card p-10 rounded-2xl flex flex-col gap-4">
+          <span class="material-symbols-outlined text-tertiary text-4xl">psychology</span>
+          <h3 class="font-headline-md text-headline-md">AI-Assisted Dev</h3>
+          <p class="font-body-md text-body-md text-on-secondary-container">Integrating LLMs and ML models directly into native client experiences.</p>
+        </div>
+        <div class="col-span-12 md:col-span-8 glass-card p-10 rounded-2xl flex flex-col justify-end relative overflow-hidden group">
+          <div class="absolute inset-0 bg-gradient-to-r from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+          <h3 class="font-headline-md text-headline-md mb-2">Technical Audits &amp; Refactoring</h3>
+          <p class="font-body-md text-body-md text-on-secondary-container">Identifying bottlenecks, security risks, and technical debt in existing codebases to prepare for next-gen scale.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Tech Stack Section -->
+  <section id="stack" class="scroll-reveal max-w-container-max-width mx-auto px-gutter py-24">
+    <div class="text-center mb-16">
+      <h2 class="font-headline-lg text-headline-lg mb-4">The <span class="text-primary">Core Stack</span></h2>
+      <p class="font-body-md text-body-md text-on-secondary-container max-w-2xl mx-auto">Mastering the bleeding edge of Apple's ecosystem to deliver uncompromising native performance.</p>
+    </div>
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
+      <div class="tech-card-glow bg-surface-container-low border border-outline-variant/20 p-6 rounded-2xl flex flex-col items-center justify-center gap-4 hover:border-primary/50 transition-colors group">
+        <span class="material-symbols-outlined text-primary text-3xl group-hover:scale-110 transition-transform">terminal</span>
+        <span class="font-label-md text-label-md font-bold tracking-tight">Swift</span>
+      </div>
+      <div class="tech-card-glow bg-surface-container-low border border-outline-variant/20 p-6 rounded-2xl flex flex-col items-center justify-center gap-4 hover:border-primary/50 transition-colors group">
+        <span class="material-symbols-outlined text-primary text-3xl group-hover:scale-110 transition-transform">layers</span>
+        <span class="font-label-md text-label-md font-bold tracking-tight">SwiftUI</span>
+      </div>
+      <div class="tech-card-glow bg-surface-container-low border border-outline-variant/20 p-6 rounded-2xl flex flex-col items-center justify-center gap-4 hover:border-primary/50 transition-colors group">
+        <span class="material-symbols-outlined text-primary text-3xl group-hover:scale-110 transition-transform">category</span>
+        <span class="font-label-md text-label-md font-bold tracking-tight">UIKit</span>
+      </div>
+      <div class="tech-card-glow bg-surface-container-low border border-outline-variant/20 p-6 rounded-2xl flex flex-col items-center justify-center gap-4 hover:border-primary/50 transition-colors group">
+        <span class="material-symbols-outlined text-primary text-3xl group-hover:scale-110 transition-transform">sync_alt</span>
+        <span class="font-label-md text-label-md font-bold tracking-tight">RxSwift</span>
+      </div>
+      <div class="tech-card-glow bg-surface-container-low border border-outline-variant/20 p-6 rounded-2xl flex flex-col items-center justify-center gap-4 hover:border-primary/50 transition-colors group">
+        <span class="material-symbols-outlined text-primary text-3xl group-hover:scale-110 transition-transform">hub</span>
+        <span class="font-label-md text-label-md font-bold tracking-tight">Combine</span>
+      </div>
+      <div class="tech-card-glow bg-surface-container-low border border-outline-variant/20 p-6 rounded-2xl flex flex-col items-center justify-center gap-4 hover:border-primary/50 transition-colors group">
+        <span class="material-symbols-outlined text-primary text-3xl group-hover:scale-110 transition-transform">desktop_mac</span>
+        <span class="font-label-md text-label-md font-bold tracking-tight">macOS</span>
+      </div>
+      <div class="tech-card-glow bg-surface-container-low border border-outline-variant/20 p-6 rounded-2xl flex flex-col items-center justify-center gap-4 hover:border-primary/50 transition-colors group">
+        <span class="material-symbols-outlined text-primary text-3xl group-hover:scale-110 transition-transform">watch</span>
+        <span class="font-label-md text-label-md font-bold tracking-tight">watchOS</span>
+      </div>
+      <div class="tech-card-glow bg-surface-container-low border border-outline-variant/20 p-6 rounded-2xl flex flex-col items-center justify-center gap-4 hover:border-primary/50 transition-colors group">
+        <span class="material-symbols-outlined text-primary text-3xl group-hover:scale-110 transition-transform">visibility</span>
+        <span class="font-label-md text-label-md font-bold tracking-tight">visionOS</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Trusted Clients Section -->
+  <section class="scroll-reveal py-24 border-y border-outline-variant/10">
+    <div class="text-center mb-16">
+      <span class="font-label-sm text-label-sm text-on-secondary-container uppercase tracking-[0.2em] font-bold">Trusted by World-Class Teams</span>
+    </div>
+    <div class="max-w-container-max-width mx-auto px-gutter">
+    <div class="logo-marquee relative">
+      <div class="logo-marquee-fade-left"></div>
+      <div class="logo-marquee-fade-right"></div>
+      <div class="logo-marquee-track" data-logos="8">
+        <!-- Original set -->
+        <div class="marquee-item flex items-center justify-center shrink-0 px-8"><img alt="Suma Logo" class="h-10 md:h-14 w-auto opacity-70 hover:opacity-100 transition-opacity invert" src="https://lh3.googleusercontent.com/aida/ADBb0ujPyOWTR4jGbmGsGYQOLG45rduoxh3F5zDOLqXMkFqJjyD8wS3Ig3OUbanM1_-sfr6HwTt-jKIo6Oa6lP87IQhp6k_78W1DO9c_Qt-P0mw01TnwKLgEMVGGXxpbw9ifadRebo2HapateMk9j7UejWGYUeQWWp3A954FOoh7-7u1jONC6lATZmOmXp0k_p2Sxs4x5XBJWWxlVYjJ2XZt2vSo-pFobJSa7M2ApGjtAY_3YR7QIVjzD5ZqiF4" /></div>
+        <div class="marquee-item flex items-center justify-center shrink-0 px-8"><img alt="FireArt Studio Logo" class="h-10 md:h-14 w-auto opacity-70 hover:opacity-100 transition-opacity" src="https://lh3.googleusercontent.com/aida/ADBb0ugpKwRtxUaGrh_Hrz1CyVOUTk3qXHOK-49KDvEFvzVo634YMsIlagMvJL7j1YTumBHTadXp1jkBf0bNjxCHihb3oH-shzMprKL1JEbEPTXdthMbvko9PtW-WY7fcmurqUTdiAVIgK9EJA8mex_l73zsOVq0QSEAkXlPHZFiizd5JkZ9_u52JVrvMstES8HpuQYUZKr1kZ5-0fNW-VC-0amvXKdCtj1LMoB16KCSbY-_1DeuT9cCeYJH8A" /></div>
+        <div class="marquee-item flex items-center justify-center shrink-0 px-8"><img alt="TapWise Logo" class="h-10 md:h-14 w-auto opacity-70 hover:opacity-100 transition-opacity" src="https://lh3.googleusercontent.com/aida/ADBb0ujQGEv2Fq8wnQhQUuiC2wlPLKY-Z6skmWkPsPxFzltemTB71wsGieBk7zugz26D1oxWM4acALcfIkDKKpy3dSv5D2DwHAbTxNwgLvKTWNQ1C4XfqZsfPEDG4bEYaiVxNlHXN_OV--rI8KJWlt-_gIjv_4m1ZaoRqxI5_g1O8EFqm3EP4DKIcnqG9AxwIjJuX8zXjGCIG5FsUR4nauNdsVrn9SonSiAhstumLhj_ThW3VVsLBCm7B_wCOqA" /></div>
+        <div class="marquee-item flex items-center justify-center shrink-0 px-8"><img alt="Amwaly Finance Logo" class="h-10 md:h-14 w-auto opacity-70 hover:opacity-100 transition-opacity" src="https://lh3.googleusercontent.com/aida/ADBb0uhmP_z9y9Z3HoijhaRdP0LiULwDrkryisdsKkRQha37EAHf4Ja-I8ol85v1qPFE8KUaXYtLqxdG6EpE_d98catYujA3YQ_74q4aI_6bmvvKyM_mgnWwV7--T2Lw1FKjLRTfN-AGnRHhilm08kKiDFoy5TCZXIl61Kr8WLXwzYJW4yY3QHgn8XhP4O8H15E4rKvtOc0L3YErncgUYrIDS6ida8FOu1HUZhuIqjjIWOyk6I1iRSoGkxiQrac" /></div>
+        <div class="marquee-item flex items-center justify-center shrink-0 px-8"><img alt="Restoke.ai Logo" class="h-10 md:h-14 w-auto opacity-70 hover:opacity-100 transition-opacity" src="https://lh3.googleusercontent.com/aida/ADBb0ugn7OhqspwKeV0p-Vrjtvhu4pwj2Ez0E09x3KycYG_cCEitY3fVDjIb7Xh84UztVahf0doqSYM4XFHJi0_7cx_NnUohaZ5F3zLXiW8p0BdgBIJ4OFM5FFSmi4f9h7leTNyJj4w6fkyByY9FPbO6FZEjxOW4kg2v_Ztf0c9EbTYJMHMfF839Lgr-_WEzX7Tbh8A6G6AFBXTxlwU30LkyaM2QBPdKgEkTlBiN4WKAa8UFQNV9N8XvLQlbYFc" /></div>
+        <div class="marquee-item flex items-center justify-center shrink-0 px-8"><img alt="Trybe Creator Logo" class="h-12 md:h-16 w-auto opacity-70 hover:opacity-100 transition-opacity" src="https://lh3.googleusercontent.com/aida/ADBb0uhT-H4Snmpw_f36kwBX5xvEtbG2OHvvxTQRT9t6sbyaMksYAu9P1krxXoZP9LrAp5jjvz-XEGlvnLrneLcFrOTeFJBdrUNMZnp0GDVZx8qtndOB12T-F41VS0J9T82XSJx0cWzi_pt7We8KblLt_yHsoz8T-VCxPs2CIE4opi-GT9yCRkLmkXtlX7ytSlwxsD0da2AC2QkO-mzqZHfoTWj-jmAwkpDpZg5HeFJYkXugYBiDQGCtX9x1Qj4" /></div>
+        <div class="marquee-item flex items-center justify-center shrink-0 px-8"><img alt="Treazie Logo" class="h-10 md:h-14 w-auto opacity-70 hover:opacity-100 transition-opacity" src="https://lh3.googleusercontent.com/aida/ADBb0ugYmBSrl2osZPbZ3cir8wPKj7dIPAaU5JHkz8ZcYRKkGoLfAW2b-Hd2ZDXSkw2QMZYk3C4RyvwYIPKJSrdZ6FqVvT4SAXsyOjMZgj6eOlLHsoXP_VGbCq6iIvp__eWhk1uuOC0AFcym7Ja7_pvq9TU8SCdII-H1DvL0-wbCN5YiDEE-twsotPLHmaYaqePlj-obSHi-wDI63XP_fkunKT3B55F4i0nZzasO-dVNW9Z08YYKeRGAmjF9yg" /></div>
+        <div class="marquee-item flex items-center justify-center shrink-0 px-8"><img alt="Club49 Logo" class="h-10 md:h-14 w-auto opacity-70 hover:opacity-100 transition-opacity" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCHZLq0dBGoN-s9NKzkXrHl3SfnGCD8uYCkDO0NnlLxb_izszEJgTQWDJbmTyKzASthGL7yRi-LvqwdkIJrfrGgbE1huttlUjW6hqSoLdhdpmpXlgxGFSj-ccClxfXqOV81hC825D-hYbWDk4BswaWchno4Ttt3sUek_RHkjVcjMAs-efjdDWzQdvg9_biMCdNcFl_RAQvFJ31kBZ-gGAuDSTWkUNeAXrFP2uGc7978gfPwkLsG4bAQXYDrAWQCZCnXCROPH7ua29o" /></div>
+      </div>
+    </div>
+    </div>
+  </section>
+
+  <!-- Portfolio -->
+  <section id="portfolio" class="scroll-reveal max-w-container-max-width mx-auto px-gutter py-24">
+    <h2 class="font-headline-lg text-headline-lg mb-16">Selected <span class="text-primary">Work</span></h2>
+    <div class="space-y-32">
+      <!-- Case Study 1: Trybe -->
+      <a href="trybe_saas_application_ultra_high_res_portfolio_detail/code.html" class="flex flex-col md:flex-row gap-12 items-center group cursor-pointer hover:opacity-90 transition-opacity">
+        <div class="flex-1 space-y-8">
+          <div>
+            <span class="text-primary font-label-md text-label-md uppercase tracking-widest">NATIVE iOS &bull; PRODUCT DESIGN</span>
+            <h3 class="font-headline-xl text-headline-xl mt-2 group-hover:text-primary transition-colors">Trybe - SaaS Application</h3>
+          </div>
+          <p class="font-body-lg text-body-lg text-on-secondary-container">A high-performance content creator platform featuring real-time brand partnerships, live earnings tracking, and professional feedback loops.</p>
+          <div class="grid grid-cols-3 gap-4 border-t border-outline-variant/30 pt-8">
+            <div>
+              <p class="text-on-secondary-container font-label-sm text-label-sm uppercase">Role</p>
+              <p class="font-body-md text-body-md font-bold">Lead iOS Developer</p>
+            </div>
+            <div>
+              <p class="text-on-secondary-container font-label-sm text-label-sm uppercase">Impact</p>
+              <p class="font-body-md text-body-md font-bold">$15k+ Payouts</p>
+            </div>
+          </div>
+        </div>
+        <div class="flex-1 w-full overflow-hidden rounded-2xl">
+          <img alt="Trybe - SaaS Application Case Study" class="w-full rounded-2xl border border-outline-variant/30 shadow-2xl group-hover:scale-[1.03] transition-transform duration-500" src="https://lh3.googleusercontent.com/aida/ADBb0uh8yM5lFimbF3_mllusg-5p_8p1F_xU5_nEdDUMPdU71HwXMvXpecp-ePuebR1JbVjIXqmob8YyPyCYdILYoMdvo8QyCay_e4EqtbzW638EEOIaoGI9aaoSCu47ir5xk-nkzXHUAHDVg01sU-JbRiHfalCaksRlo70g84S6DIGErpyj9qnQnU0h4hlNHx4p9K12Ogxoyo73psulu1m5k--Ng1pmNq4p64wBZVpburpt4L7dSl4mIfSA48g" />
+        </div>
+      </a>
+      <!-- Case Study 2: Bodo -->
+      <a href="screen_time_control_app_portfolio_detail/code.html" class="flex flex-col md:flex-row-reverse gap-12 items-center group cursor-pointer hover:opacity-90 transition-opacity">
+        <div class="flex-1 space-y-8">
+          <div>
+            <span class="text-tertiary font-label-md text-label-md uppercase tracking-widest">iOS UTILITY &bull; GAMIFICATION</span>
+            <h3 class="font-headline-xl text-headline-xl mt-2 group-hover:text-tertiary transition-colors">Bodo - Screen Time Control</h3>
+          </div>
+          <p class="font-body-lg text-body-lg text-on-secondary-container">An interactive productivity companion that helps users regain 2+ hours of daily life through app blocking, Rive animations, and gamified rewards.</p>
+          <div class="grid grid-cols-3 gap-4 border-t border-outline-variant/30 pt-8">
+            <div>
+              <p class="text-on-secondary-container font-label-sm text-label-sm uppercase">Role</p>
+              <p class="font-body-md text-body-md font-bold">Mobile App Developer</p>
+            </div>
+            <div>
+              <p class="text-on-secondary-container font-label-sm text-label-sm uppercase">Tech</p>
+              <p class="font-body-md text-body-md font-bold">Family Controls API</p>
+            </div>
+          </div>
+        </div>
+        <div class="flex-1 w-full overflow-hidden rounded-2xl">
+          <img alt="Bodo - Screen Time Control Case Study" class="w-full rounded-2xl border border-outline-variant/30 shadow-2xl group-hover:scale-[1.03] transition-transform duration-500" src="https://lh3.googleusercontent.com/aida/ADBb0uiDEZqOBH-TFYbz5tsoYkeG1NMu5bMswsn34QMplT9JtFA7EMYo9VfmTb4svNQIdjkRDrY7Lhg-JyExBLHwugJnX2UdSZG1XjJ_LOFhJlpox3LxnXn9gBaLQbn6Uqt5PuukoNMYpDxsgGrPNXirJMoLAhDpC-YKEm48HbUH78U3erQCo0VXatNHVv2z2_mAGwjHZwBCGzZ7F4eG2YdgDfbRPyPNoYr3pLcJBNad1mWnB02YOacvxJlLxh4" />
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <!-- Engineering Standards -->
+  <section id="standards" class="scroll-reveal bg-surface-container-lowest py-24">
+    <div class="max-w-container-max-width mx-auto px-gutter grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+      <div>
+        <h2 class="font-headline-lg text-headline-lg mb-8">Built on <span class="text-primary">Rigorous</span> Standards.</h2>
+        <p class="font-body-md text-body-md text-on-secondary-container mb-12">We don't just ship features; we engineer systems. Our methodology ensures that your product remains maintainable even as your team grows 10x.</p>
+        <ul class="space-y-6">
+          <li class="flex items-start gap-4">
+            <span class="material-symbols-outlined text-primary" style='font-variation-settings: "FILL" 1;'>check_circle</span>
+            <div>
+              <h4 class="font-headline-md text-headline-md">Clean Architecture</h4>
+              <p class="font-body-md text-body-md text-on-secondary-container">Strict separation of concerns to enable modular testing and feature isolation.</p>
+            </div>
+          </li>
+          <li class="flex items-start gap-4">
+            <span class="material-symbols-outlined text-primary" style='font-variation-settings: "FILL" 1;'>check_circle</span>
+            <div>
+              <h4 class="font-headline-md text-headline-md">SOLID Principles</h4>
+              <p class="font-body-md text-body-md text-on-secondary-container">Foundational object-oriented design that prevents entangled, unmaintainable code.</p>
+            </div>
+          </li>
+          <li class="flex items-start gap-4">
+            <span class="material-symbols-outlined text-primary" style='font-variation-settings: "FILL" 1;'>check_circle</span>
+            <div>
+              <h4 class="font-headline-md text-headline-md">Automated CI/CD</h4>
+              <p class="font-body-md text-body-md text-on-secondary-container">Every commit is validated, tested, and ready for deployment to staging environments.</p>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <div class="glass-card p-12 rounded-2xl relative overflow-hidden group">
+        <div class="absolute -top-12 -right-12 w-48 h-48 bg-primary/10 rounded-full blur-3xl"></div>
+        <div class="space-y-4">
+          <div class="flex justify-between items-center p-4 rounded-lg bg-surface-container/50 border border-outline-variant/20">
+            <code class="text-primary font-mono text-sm">func optimizedBuild() { ... }</code>
+            <span class="text-xs font-bold px-2 py-1 rounded bg-emerald-500/10 text-emerald-400">PASSED</span>
+          </div>
+          <div class="flex justify-between items-center p-4 rounded-lg bg-surface-container/50 border border-outline-variant/20">
+            <code class="text-secondary font-mono text-sm">runMemoryLeakDetect()</code>
+            <span class="text-xs font-bold px-2 py-1 rounded bg-blue-500/10 text-blue-400">0 LEAKS</span>
+          </div>
+          <div class="p-4 rounded-lg bg-surface-container/50 border border-outline-variant/20">
+            <div class="flex justify-between mb-2">
+              <span class="text-on-surface font-label-sm">Unit Test Coverage</span>
+              <span class="text-primary font-label-sm">94%</span>
+            </div>
+            <div class="w-full bg-outline-variant/30 h-1.5 rounded-full">
+              <div class="bg-primary h-full w-[94%] rounded-full"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Client Reviews Section -->
+  <section id="reviews" class="scroll-reveal max-w-container-max-width mx-auto px-gutter py-24">
+    <div class="text-center mb-16">
+      <span class="material-symbols-outlined text-primary text-6xl mb-4">reviews</span>
+      <h2 class="font-headline-lg text-headline-lg">Authentic <span class="text-primary">Client Feedback</span></h2>
+      <p class="font-body-md text-body-md text-on-secondary-container max-w-2xl mx-auto mt-4">Direct testimonials from our global partners and founders.</p>
+    </div>
+    <div class="columns-1 md:columns-2 lg:columns-3 gap-8 space-y-8">
+      <!-- Review 1 -->
+      <div class="break-inside-avoid glass-card p-8 rounded-2xl border border-outline-variant/20 flex flex-col gap-6">
+        <div class="flex justify-between items-start">
+          <div class="flex text-[#f05138]">
+            <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+            <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+            <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+            <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+            <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+          </div>
+          <span class="text-on-surface/40 font-mono text-xs">5.0</span>
+        </div>
+        <p class="font-body-md text-on-surface leading-relaxed italic">"Trinh has been incredible to work with. He has the skills. Good quality of work. Made himself available for calls. Just great to work with."</p>
+        <div class="pt-4 border-t border-outline-variant/10">
+          <p class="text-primary font-label-sm uppercase tracking-wider mb-1">Project</p>
+          <p class="font-label-md font-bold text-on-secondary-container">iOS Swift Developer Needed for MVP App Based on Figma Prototype</p>
+        </div>
+      </div>
+      <!-- Review 2 -->
+      <div class="break-inside-avoid glass-card p-8 rounded-2xl border border-outline-variant/20 flex flex-col gap-6">
+        <div class="flex justify-between items-start">
+          <div class="flex text-[#f05138]">
+            <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+            <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+            <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+            <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+            <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+          </div>
+          <span class="text-on-surface/40 font-mono text-xs">5.0</span>
+        </div>
+        <p class="font-body-md text-on-surface leading-relaxed italic">"I have been consistently impressed by Trinh's prompt and efficient task completion. I greatly appreciate his readiness to assist me whenever I require his expertise. Trinh's quick and positive response..."</p>
+        <div class="pt-4 border-t border-outline-variant/10">
+          <p class="text-primary font-label-sm uppercase tracking-wider mb-1">Project</p>
+          <p class="font-label-md font-bold text-on-secondary-container">Revamp An Existing App Feature Screen</p>
+        </div>
+      </div>
+      <!-- Review 3 -->
+      <div class="break-inside-avoid glass-card p-8 rounded-2xl border border-outline-variant/20 flex flex-col gap-6">
+        <div class="flex justify-between items-start">
+          <div class="flex text-[#f05138]">
+            <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+            <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+            <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+            <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+            <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+          </div>
+          <span class="text-on-surface/40 font-mono text-xs">5.0</span>
+        </div>
+        <p class="font-body-md text-on-surface leading-relaxed italic">"Very motivated"</p>
+        <div class="pt-4 border-t border-outline-variant/10">
+          <p class="text-primary font-label-sm uppercase tracking-wider mb-1">Project</p>
+          <p class="font-label-md font-bold text-on-secondary-container">Senior Swift iOS developer</p>
+        </div>
+      </div>
+      <!-- Review 4 -->
+      <div class="break-inside-avoid glass-card p-8 rounded-2xl border border-outline-variant/20 flex flex-col gap-6">
+        <div class="flex justify-between items-start">
+          <div class="flex text-[#f05138]">
+            <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+            <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+            <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+            <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+            <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+          </div>
+          <span class="text-on-surface/40 font-mono text-xs">5.0</span>
+        </div>
+        <p class="font-body-md text-on-surface leading-relaxed italic">"Trinh completed an initial investigation of the codebase and provided helpful analysis. Communication was clear and professional."</p>
+        <div class="pt-4 border-t border-outline-variant/10">
+          <p class="text-primary font-label-sm uppercase tracking-wider mb-1">Project</p>
+          <p class="font-label-md font-bold text-on-secondary-container">Senior iOS Developer (Swift + Objective-C) - 13" iPad Kiosk Checkout Redesign</p>
+        </div>
+      </div>
+      <!-- Review 5 -->
+      <div class="break-inside-avoid glass-card p-8 rounded-2xl border border-outline-variant/20 flex flex-col gap-6">
+        <div class="flex justify-between items-start">
+          <div class="flex text-[#f05138]">
+            <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+            <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+            <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+            <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+            <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0.8;">star</span>
+          </div>
+          <span class="text-on-surface/40 font-mono text-xs">4.9</span>
+        </div>
+        <p class="font-body-md text-on-surface leading-relaxed italic">"He's truly the senior developer you could look up to, not only he solves your code problems, he could also give you guidance for self improvement and consultations for working..."</p>
+        <div class="pt-4 border-t border-outline-variant/10">
+          <p class="text-primary font-label-sm uppercase tracking-wider mb-1">Project</p>
+          <p class="font-label-md font-bold text-on-secondary-container">iOS application enhancement 2</p>
+        </div>
+      </div>
+      <!-- Review 6 -->
+      <div class="break-inside-avoid glass-card p-8 rounded-2xl border border-outline-variant/20 flex flex-col gap-6">
+        <div class="flex justify-between items-start">
+          <div class="flex text-[#f05138]">
+            <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+            <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+            <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+            <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+            <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0.5;">star</span>
+          </div>
+          <span class="text-on-surface/40 font-mono text-xs">4.8</span>
+        </div>
+        <p class="font-body-md text-on-surface leading-relaxed italic">"Trinh has been great to work with! We have spent a lot of time together... developing a new iOS app for our business... He has taken feedback well, iterated relentlessly, and always come up with practical solutions."</p>
+        <div class="pt-4 border-t border-outline-variant/10">
+          <p class="text-primary font-label-sm uppercase tracking-wider mb-1">Feedback</p>
+          <p class="font-label-md font-bold text-on-secondary-container">Client's Continuous Review</p>
+        </div>
+      </div>
+      <!-- Review 7 -->
+      <div class="break-inside-avoid glass-card p-8 rounded-2xl border border-outline-variant/20 flex flex-col gap-6">
+        <div class="flex justify-between items-start">
+          <div class="flex text-[#f05138]">
+            <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+            <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+            <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+            <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+            <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+          </div>
+          <span class="text-on-surface/40 font-mono text-xs">5.0</span>
+        </div>
+        <p class="font-body-md text-on-surface leading-relaxed italic">"Trinh is amazing! He is a super hard worker, very determined, and communicative. We had a difficult authentication issue, and Trinh was able to figure it out, wrote good code to fix it, and got everything working!"</p>
+        <div class="pt-4 border-t border-outline-variant/10">
+          <p class="text-primary font-label-sm uppercase tracking-wider mb-1">Project</p>
+          <p class="font-label-md font-bold text-on-secondary-container">iOS App to Chat with LLMs</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Final CTA -->
+  <section class="scroll-reveal max-w-container-max-width mx-auto px-gutter py-24 mb-24">
+    <div class="glass-card rounded-3xl p-12 md:p-20 text-center relative overflow-hidden">
+      <div class="hero-glow bottom-0 right-0 translate-x-1/2 translate-y-1/2 opacity-30"></div>
+      <h2 class="font-headline-xl text-headline-xl mb-6">Ready to scale your vision?</h2>
+      <p class="font-body-lg text-body-lg text-on-secondary-container max-w-2xl mx-auto mb-12">
+        Join the elite startups building their future with Swiftlab's senior engineering team.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a href="https://calendly.com/nguyen-the-trinh-ios/30min" target="_blank" rel="noopener" class="bg-primary-container text-on-primary-container px-8 py-4 rounded-xl font-headline-md text-headline-md font-bold hover:scale-105 transition-transform">Book a Technical Call</a>
+        <a href="#portfolio" class="border border-outline-variant/50 text-on-surface px-8 py-4 rounded-xl font-headline-md text-headline-md font-bold hover:bg-surface-container transition-colors">View Case Studies</a>
+        <a href="https://upwork.com/freelancers/trinhnguyenios" target="_blank" rel="noopener" class="border border-outline-variant/50 text-on-surface px-8 py-4 rounded-xl font-headline-md text-headline-md font-bold hover:bg-surface-container transition-colors flex items-center justify-center gap-2">
+          <span class="w-2 h-2 rounded-full bg-[#14a800]"></span>Upwork Profile
+        </a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- Footer -->
+<footer class="bg-surface-container-lowest border-t border-outline-variant">
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 px-gutter py-12 max-w-container-max-width mx-auto">
+    <div class="flex flex-col gap-4">
+      <div class="font-headline-md text-headline-md font-bold text-on-surface">Swiftlab</div>
+      <p class="font-body-md text-body-md text-on-secondary-container">Engineering elite native experiences for the next generation of industry leaders.</p>
+    </div>
+    <div class="flex flex-col gap-4">
+      <span class="font-label-sm text-label-sm font-bold text-primary uppercase">Company</span>
+      <a class="font-label-sm text-label-sm text-on-secondary-container hover:text-surface-tint transition-colors" href="#">Engineering Blog</a>
+      <a class="font-label-sm text-label-sm text-on-secondary-container hover:text-surface-tint transition-colors" href="#">Careers</a>
+      <a class="font-label-sm text-label-sm text-on-secondary-container hover:text-surface-tint transition-colors" href="#">Philosophy</a>
+    </div>
+    <div class="flex flex-col gap-4">
+      <span class="font-label-sm text-label-sm font-bold text-primary uppercase">Social</span>
+      <a class="font-label-sm text-label-sm text-on-secondary-container hover:text-surface-tint transition-colors" href="#">GitHub</a>
+      <a class="font-label-sm text-label-sm text-on-secondary-container hover:text-surface-tint transition-colors" href="#">LinkedIn</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Scroll reveal
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -60px 0px' });
+
+  document.querySelectorAll('.scroll-reveal').forEach(el => observer.observe(el));
+
+  // Infinite marquee: clone logos for seamless continuous loop
+  (function initMarquee() {
+    const track = document.querySelector('.logo-marquee-track');
+    if (!track) return;
+    const items = Array.from(track.querySelectorAll('.marquee-item'));
+    if (!items.length) return;
+
+    // Always clone exactly 3 extra sets (4 total) — guarantees seamless loop at any viewport
+    for (let s = 0; s < 3; s++) {
+      items.forEach(item => track.appendChild(item.cloneNode(true)));
+    }
+
+    // Wait for images to load so widths are accurate
+    Promise.all(
+      Array.from(track.querySelectorAll('img')).map(img =>
+        img.complete ? Promise.resolve() : new Promise(r => { img.onload = r; img.onerror = r; })
+      )
+    ).then(() => {
+      // One set = total width / 4 sets
+      const oneSetWidth = track.scrollWidth / 4;
+      // Speed: ~40px per second for smooth feel
+      const duration = oneSetWidth / 40;
+
+      const style = document.createElement('style');
+      style.textContent = `
+        @keyframes marquee-loop {
+          0% { transform: translateX(0); }
+          100% { transform: translateX(-${oneSetWidth}px); }
+        }
+      `;
+      document.head.appendChild(style);
+      track.style.animation = `marquee-loop ${duration}s linear infinite`;
+    });
+  })();
+
+  // Smooth scroll for anchor links
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+      e.preventDefault();
+      const target = document.querySelector(this.getAttribute('href'));
+      if (target) {
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+  });
+</script>
+
+</body>
+</html>

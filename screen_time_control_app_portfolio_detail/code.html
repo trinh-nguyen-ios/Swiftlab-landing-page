@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Swiftlab | Screen-Time Control App (Bodo)</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://cdn.jsdelivr.net/gh/vincentdoerig/framer-motion-cdn@main/dist/framer-motion.css" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap');
+    
+    body {
+      font-family: 'Geist', sans-serif;
+      background-color: #131313;
+      color: #e2e2e2;
+      overflow-x: hidden;
+    }
+
+    .glass-card {
+      background: rgba(31, 31, 31, 0.7);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .glass-card:hover {
+      border-color: rgba(255, 255, 255, 0.15);
+      transform: translateY(-4px);
+    }
+
+    .hero-glow {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(251, 89, 63, 0.08) 0%, rgba(19, 19, 19, 0) 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .tech-stack-item {
+      border: 1px solid #1f1f1f;
+      background: #0a0a0a;
+      transition: all 0.2s ease;
+    }
+
+    .tech-stack-item:hover {
+      border-color: #ffb4a6;
+      background: #131313;
+    }
+
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    }
+
+    /* Precision border for bento grid */
+    .bento-border {
+      border: 1px solid #1f1f1f;
+    }
+  </style>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "surface-container": "#1f1f1f",
+            "on-secondary-fixed": "#1a1c1c",
+            "surface-dim": "#131313",
+            "error-container": "#93000a",
+            "primary-fixed-dim": "#ffb4a6",
+            "outline-variant": "#5a403c",
+            "background": "#131313",
+            "secondary-fixed": "#e2e2e2",
+            "on-tertiary-fixed": "#001f26",
+            "inverse-primary": "#b52613",
+            "surface-container-highest": "#353535",
+            "outline": "#aa8983",
+            "tertiary-fixed-dim": "#68d5f1",
+            "surface-bright": "#393939",
+            "secondary-fixed-dim": "#c6c6c7",
+            "on-error-container": "#ffdad6",
+            "surface-container-low": "#1b1b1b",
+            "on-surface": "#e2e2e2",
+            "on-tertiary": "#003641",
+            "surface-container-lowest": "#0e0e0e",
+            "on-tertiary-container": "#002e38",
+            "tertiary-container": "#1d9eb9",
+            "on-secondary-container": "#b4b5b5",
+            "on-primary-container": "#5a0500",
+            "surface-container-high": "#2a2a2a",
+            "on-background": "#e2e2e2",
+            "primary": "#ffb4a6",
+            "error": "#ffb4ab",
+            "tertiary": "#68d5f1",
+            "primary-container": "#fb593f",
+            "on-surface-variant": "#e3beb8",
+            "on-primary": "#660700",
+            "inverse-surface": "#e2e2e2",
+            "tertiary-fixed": "#afecff",
+            "on-primary-fixed-variant": "#900d00",
+            "on-tertiary-fixed-variant": "#004e5d",
+            "on-error": "#690005",
+            "surface-variant": "#353535",
+            "on-secondary-fixed-variant": "#454747",
+            "primary-fixed": "#ffdad4",
+            "on-secondary": "#2f3131",
+            "surface": "#131313",
+            "surface-tint": "#ffb4a6",
+            "on-primary-fixed": "#3f0300",
+            "inverse-on-surface": "#303030",
+            "secondary-container": "#454747",
+            "secondary": "#c6c6c7"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.125rem",
+            "lg": "0.25rem",
+            "xl": "0.5rem",
+            "full": "0.75rem"
+          },
+          "spacing": {
+            "margin-mobile": "16px",
+            "unit": "4px",
+            "container-max-width": "1200px",
+            "gutter": "24px",
+            "margin-desktop": "40px"
+          },
+          "fontFamily": {
+            "body-md": ["Geist"],
+            "label-md": ["Geist"],
+            "headline-xl": ["Geist"],
+            "headline-lg": ["Geist"],
+            "body-lg": ["Geist"],
+            "label-sm": ["Geist"],
+            "headline-lg-mobile": ["Geist"],
+            "headline-md": ["Geist"]
+          },
+          "fontSize": {
+            "body-md": ["14px", {"lineHeight": "1.5", "fontWeight": "400"}],
+            "label-md": ["12px", {"lineHeight": "1.2", "letterSpacing": "0.02em", "fontWeight": "500"}],
+            "headline-xl": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.04em", "fontWeight": "700"}],
+            "headline-lg": ["32px", {"lineHeight": "1.2", "letterSpacing": "-0.03em", "fontWeight": "600"}],
+            "body-lg": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+            "label-sm": ["11px", {"lineHeight": "1.2", "letterSpacing": "0.05em", "fontWeight": "600"}],
+            "headline-lg-mobile": ["24px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+            "headline-md": ["20px", {"lineHeight": "1.4", "letterSpacing": "-0.01em", "fontWeight": "600"}]
+          }
+        },
+      },
+    }
+  </script>
+</head>
+<body class="bg-background text-on-surface selection:bg-primary selection:text-on-primary">
+<!-- Top Navigation Bar (Shared Component) -->
+<header class="fixed top-0 w-full z-50 bg-surface/70 dark:bg-on-surface/70 backdrop-blur-xl border-b border-outline/5 dark:border-outline-variant/5 h-20">
+<div class="flex justify-between items-center max-w-[1200px] mx-auto px-margin-desktop h-full">
+<div class="font-headline-md text-headline-md font-bold tracking-tight text-on-surface dark:text-inverse-on-surface">Swiftlab</div>
+<nav class="hidden md:flex items-center gap-8 font-body-md text-body-md">
+<a class="text-secondary dark:text-secondary-fixed-dim hover:text-primary dark:hover:text-inverse-primary transition-colors" href="../index.html#portfolio">Portfolio</a>
+<a class="text-secondary dark:text-secondary-fixed-dim hover:text-primary dark:hover:text-inverse-primary transition-colors" href="../index.html#services">Services</a>
+<a class="text-secondary dark:text-secondary-fixed-dim hover:text-primary dark:hover:text-inverse-primary transition-colors" href="../index.html#stack">Technologies</a>
+<a class="text-secondary dark:text-secondary-fixed-dim hover:text-primary dark:hover:text-inverse-primary transition-colors" href="../index.html#reviews">Testimonials</a>
+</nav>
+<a href="https://calendly.com/nguyen-the-trinh-ios/30min" target="_blank" rel="noopener" class="bg-primary text-on-primary px-6 py-2.5 rounded-full font-label-md text-label-md font-semibold hover:opacity-80 transition-all scale-95 active:scale-90">
+        Start Project
+      </a>
+</div>
+</header>
+<main class="pt-32">
+<!-- Hero Section -->
+<section class="relative max-w-[1200px] mx-auto px-margin-desktop mb-32">
+<div class="hero-glow"></div>
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+<div class="relative z-10">
+<div class="inline-flex items-center gap-2 px-3 py-1 bg-surface-container rounded-full mb-6 bento-border">
+<span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+<span class="font-label-sm text-label-sm uppercase tracking-widest text-primary">Case Study</span>
+</div>
+<h1 class="font-headline-xl text-headline-xl mb-6">Screen-Time Control App</h1>
+<p class="font-label-md text-label-md text-primary mb-2 uppercase tracking-wide">Role: Mobile App Developer</p>
+<p class="font-body-lg text-body-lg text-secondary mb-10 max-w-lg">
+            A focused productivity app designed to help users reduce distractions, block unwanted apps, and manage screen time effectively.
+          </p>
+<div class="flex flex-wrap gap-4">
+<button class="bg-primary text-on-primary px-8 py-4 rounded-full font-label-md text-label-md font-bold hover:opacity-90 transition-opacity flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">ios</span>
+              Link to App Store
+            </button>
+<button class="bg-transparent border border-outline-variant text-on-surface px-8 py-4 rounded-full font-label-md text-label-md font-bold hover:bg-surface-container transition-colors flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">description</span>
+              View Documentation
+            </button>
+</div>
+</div>
+<div class="relative group">
+<div class="absolute -inset-4 bg-primary/10 blur-3xl opacity-20 group-hover:opacity-40 transition-opacity"></div>
+<img alt="Premium app mockup" class="relative rounded-[3rem] shadow-2xl border border-white/5 w-full" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAJZjs2WezmwCZkPFG2CUbajn8QV94QAsMVkOa-sOQQh3y6sVcOKyX0x3yTQJJqiDqDA9qCU1EzUQxjDwOnU1YjKBy5tDwKOFLBwgitusn9I_vSQDEeA8HjU2zwhhSUEBCZAhogP0DPu5i6I0OcZu2ArOF-yH7XvRLXTxSIuQOxtXH1fLJf4akFwhscbly8cKMrGcPKOjFG9AxtD6y2qjVKx1kNJbO7KZMKq7sf283Rkj43iPInl4L5EIXEceY88KPJjSPBoNA-LRg"/>
+</div>
+</div>
+</section>
+<!-- Tech Stack Section -->
+<section class="bg-surface-container-low py-24 mb-32">
+<div class="max-w-[1200px] mx-auto px-margin-desktop text-center">
+<h2 class="font-headline-lg text-headline-lg mb-16">Built with Modern Standards</h2>
+<div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
+<div class="tech-stack-item p-8 rounded-xl flex flex-col items-center gap-4">
+<div class="w-12 h-12 flex items-center justify-center bg-primary/10 rounded-full text-primary">
+<span class="material-symbols-outlined text-[28px]">sprint</span>
+</div>
+<span class="font-label-md text-label-md">SwiftUI</span>
+</div>
+<div class="tech-stack-item p-8 rounded-xl flex flex-col items-center gap-4">
+<div class="w-12 h-12 flex items-center justify-center bg-tertiary/10 rounded-full text-tertiary">
+<span class="material-symbols-outlined text-[28px]">architecture</span>
+</div>
+<span class="font-label-md text-label-md">MVVM-C</span>
+</div>
+<div class="tech-stack-item p-8 rounded-xl flex flex-col items-center gap-4">
+<div class="w-12 h-12 flex items-center justify-center bg-orange-500/10 rounded-full text-orange-500">
+<span class="material-symbols-outlined text-[28px]">local_fire_department</span>
+</div>
+<span class="font-label-md text-label-md">Firebase</span>
+</div>
+<div class="tech-stack-item p-8 rounded-xl flex flex-col items-center gap-4">
+<div class="w-12 h-12 flex items-center justify-center bg-blue-500/10 rounded-full text-blue-400">
+<span class="material-symbols-outlined text-[28px]">rocket_launch</span>
+</div>
+<span class="font-label-md text-label-md">AppsFlyer</span>
+</div>
+<div class="tech-stack-item p-8 rounded-xl flex flex-col items-center gap-4">
+<div class="w-12 h-12 flex items-center justify-center bg-purple-500/10 rounded-full text-purple-400">
+<span class="material-symbols-outlined text-[28px]">analytics</span>
+</div>
+<span class="font-label-md text-label-md">Amplitude</span>
+</div>
+<div class="tech-stack-item p-8 rounded-xl flex flex-col items-center gap-4">
+<div class="w-12 h-12 flex items-center justify-center bg-white/5 rounded-full text-on-surface">
+<span class="material-symbols-outlined text-[28px]">design_services</span>
+</div>
+<span class="font-label-md text-label-md">Figma</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Feature Deep-Dive Section -->
+<section class="max-w-[1200px] mx-auto px-margin-desktop mb-32">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+<div class="lg:col-span-5 sticky top-32">
+<h2 class="font-headline-lg text-headline-lg mb-6">Engineering Productivity &amp; Focus</h2>
+<p class="font-body-lg text-body-lg text-secondary mb-12">
+            Every module and micro-interaction was crafted to feel native, fluid, and responsive. We pushed the boundaries of the Family Screen Time API to deliver unparalleled control.
+          </p>
+<div class="grid grid-cols-1 gap-4">
+<div class="flex items-center gap-4 p-4 rounded-lg bg-surface-container-high bento-border">
+<div class="p-2 bg-primary/20 text-primary rounded-md"><span class="material-symbols-outlined">lock_person</span></div>
+<div>
+<h4 class="font-label-md text-label-md font-bold">OTP ONBOARDING</h4>
+<p class="text-[12px] text-secondary">Secure frictionless auth flow</p>
+</div>
+</div>
+<div class="flex items-center gap-4 p-4 rounded-lg bg-surface-container-high bento-border">
+<div class="p-2 bg-tertiary/20 text-tertiary rounded-md"><span class="material-symbols-outlined">animation</span></div>
+<div>
+<h4 class="font-label-md text-label-md font-bold">RIVE ANIMATIONS</h4>
+<p class="text-[12px] text-secondary">High-performance vector motion</p>
+</div>
+</div>
+<div class="flex items-center gap-4 p-4 rounded-lg bg-surface-container-high bento-border">
+<div class="p-2 bg-primary/20 text-primary rounded-md"><span class="material-symbols-outlined">shield_lock</span></div>
+<div>
+<h4 class="font-label-md text-label-md font-bold">APP BLOCKING</h4>
+<p class="text-[12px] text-secondary">Advanced Family Screen Time API</p>
+</div>
+</div>
+<div class="flex items-center gap-4 p-4 rounded-lg bg-surface-container-high bento-border">
+<div class="p-2 bg-tertiary/20 text-tertiary rounded-md"><span class="material-symbols-outlined">monitoring</span></div>
+<div>
+<h4 class="font-label-md text-label-md font-bold">SCREEN TIME ANALYTICS</h4>
+<p class="text-[12px] text-secondary">Granular usage reporting</p>
+</div>
+</div>
+</div>
+</div>
+<div class="lg:col-span-7">
+<div class="rounded-3xl overflow-hidden border border-white/5 shadow-2xl">
+<img alt="Feature focus view" class="w-full" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAodR-7Q2eApbxZ33hv0qIdDfwdI3zjsNqIda3umK2eN6KN54z89k0Hxyj1cekDyP3YhtXD-kKAlCDtztZke8HZSnRcvQva8l66f-rVUjCoCafABkFJtO6mUD6lLvRzJM1IVe_7m1I8FY6nBxpwJq9mv6b9W9vXRvipjn12NG64qGbK40jVasQWeN7Ad7rGERHhyyFTqDNSuZ4Nt8nK8W6DuAtCDzYQ3j6Wj5qf9IMlhhwqRX6caT-rU_F9Lte1eZz1fo23aNSfGG8"/>
+</div>
+<div class="grid grid-cols-2 gap-6 mt-6">
+<div class="p-8 rounded-3xl bg-surface-container-lowest bento-border">
+<span class="material-symbols-outlined text-primary mb-4">notifications_active</span>
+<h4 class="font-label-md text-label-md font-bold mb-2">PUSH NOTIFICATIONS</h4>
+<p class="font-body-md text-body-md text-secondary">Smart reminders and focus alerts.</p>
+</div>
+<div class="p-8 rounded-3xl bg-surface-container-lowest bento-border">
+<span class="material-symbols-outlined text-primary mb-4">payments</span>
+<h4 class="font-label-md text-label-md font-bold mb-2">SUBSCRIPTIONS</h4>
+<p class="font-body-md text-body-md text-secondary">Robust StoreKit implementation.</p>
+</div>
+<div class="p-8 rounded-3xl bg-surface-container-lowest bento-border">
+<span class="material-symbols-outlined text-primary mb-4">group</span>
+<h4 class="font-label-md text-label-md font-bold mb-2">FRIEND LIST</h4>
+<p class="font-body-md text-body-md text-secondary">Social accountability features.</p>
+</div>
+<div class="p-8 rounded-3xl bg-surface-container-lowest bento-border">
+<span class="material-symbols-outlined text-primary mb-4">stars</span>
+<h4 class="font-label-md text-label-md font-bold mb-2">REWARDS SYSTEM</h4>
+<p class="font-body-md text-body-md text-secondary">Streaks, coins, and gamification.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Image Gallery -->
+<section class="max-w-[1200px] mx-auto px-margin-desktop mb-32">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+<div class="rounded-3xl overflow-hidden bento-border aspect-[4/5]">
+<img alt="App interface screen" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBlorfRLLOkOJIzWa_Jajpvf14O4StbuBRmZgg0ZroSNNHyEvyCZErM470NXlHxYcAdcHAbHiklzEyRubiAK8s46lIkbTUFqwddC_ccEvEmtkInoDGDNMJxkVzJHINfcEC-e8ULy7x3QQSI4WwyP5o20nan9kgei2rhtET4VD1JTFBYjLDF-yeDOwb6Ahh5AeMXimDRgTG6_59_DECyyG8fXI5_x0hLH7DDY8TqRJ5BwiLXZHw6r40gkwRBORpFnPXiYHF7ZAHEZQo"/>
+</div>
+<div class="rounded-3xl overflow-hidden bento-border aspect-[4/5]">
+<img alt="Gamification screen" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCypIevyuLLqiK0PPqU23pp67WtRDsNNAiIlqrrceuLVxM9i7jgUDkdRmEPx3Kpv8wxx6O-QW6wFe3vidWBsGXlBR6ZAr3Tx1s5inqkN492KEGo1mUC8RxsoQPx6qQrd8YzQ6erJDML6TmWeoeOQjBNrkSewLnxhKlQ7dr5MZJOJHZR-GNaCsRJKq0wqiA7lu_H-s9IKmR1h7_PH8tHv6uSzQfXfR0AWI68wz0Dad79htC_6UvLcrSreO5blyTEiWNaXvqpNtS0H4s"/>
+</div>
+</div>
+<div class="rounded-[2rem] overflow-hidden bento-border h-[500px]">
+<img alt="Immersive app dashboard" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBbvHvP1NzyiVJYSl1ilvhHmTSLozqoTV2YVRU_35EGOIZdzx9pQrhsfr1LRaNXbSsuJJUF_MXCrZvWyEpv6CjyusBrB3ubVD2MWR4tfinNCrT3YCn3Tc2O_CXmYSLWaMGbySoDSu47Kp48UggZAOBSk08peMDdF6DB9cQvBMSiTeMBU587sDjilZlqk2BZEF32pDvVRYdnWsd3xlFLwK-zE3BuQrGPVEYRCjb1wDRWlKcXwa59P8N4DR2W2n0treBBA7fpnl28egg"/>
+</div>
+</section>
+<!-- Footer CTA -->
+<section class="max-w-[1200px] mx-auto px-margin-desktop mb-32">
+<div class="bg-surface-container rounded-[2rem] p-12 md:p-24 text-center relative overflow-hidden">
+<div class="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-primary/5 via-transparent to-tertiary/5"></div>
+<div class="relative z-10 max-w-2xl mx-auto">
+<h2 class="font-headline-lg text-headline-lg mb-6">Start Your Next Project</h2>
+<p class="font-body-lg text-body-lg text-secondary mb-12">
+            Ready to elevate your digital experience? Let's build something extraordinary together. Our team is ready to bring your vision to life with precision engineering.
+          </p>
+<div class="flex flex-col sm:flex-row gap-4 justify-center">
+<a href="https://calendly.com/nguyen-the-trinh-ios/30min" target="_blank" rel="noopener" class="bg-primary text-on-primary px-10 py-5 rounded-full font-label-md text-label-md font-black hover:scale-105 transition-transform active:scale-95 inline-block">
+              Get in Touch
+            </a>
+<a href="../index.html#portfolio" class="bg-transparent border border-outline-variant text-on-surface px-10 py-5 rounded-full font-label-md text-label-md font-bold hover:bg-white/5 transition-colors inline-block">
+              Browse Portfolio
+            </a>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer (Shared Component) -->
+<footer class="w-full py-stack-xl bg-surface-container-lowest dark:bg-inverse-surface border-t border-outline/10 dark:border-outline-variant/10 py-16">
+<div class="max-w-[1200px] mx-auto px-margin-desktop flex flex-col md:flex-row justify-between items-center gap-8">
+<div class="font-headline-md text-headline-md font-black text-on-surface dark:text-inverse-on-surface">Swiftlab</div>
+<div class="flex gap-8 font-caption text-caption">
+<a class="text-secondary dark:text-secondary-fixed-dim hover:text-primary hover:underline transition-all" href="#">Privacy Policy</a>
+<a class="text-secondary dark:text-secondary-fixed-dim hover:text-primary hover:underline transition-all" href="#">Terms of Service</a>
+<a class="text-secondary dark:text-secondary-fixed-dim hover:text-primary hover:underline transition-all" href="#">Cookie Policy</a>
+<a class="text-secondary dark:text-secondary-fixed-dim hover:text-primary hover:underline transition-all" href="#">Contact</a>
+</div>
+<div class="font-caption text-caption text-secondary dark:text-secondary-fixed-dim">
+        © 2024 Swiftlab Development Agency. Precision Engineered.
+      </div>
+</div>
+</footer>
+<script>
+    // Smooth interaction for the hero mockup
+    document.addEventListener('mousemove', (e) => {
+      const mockup = document.querySelector('.group img');
+      if (!mockup) return;
+      
+      const rect = mockup.getBoundingClientRect();
+      const x = (e.clientX - rect.left) / rect.width - 0.5;
+      const y = (e.clientY - rect.top) / rect.height - 0.5;
+      
+      mockup.style.transform = `perspective(1000px) rotateY(${x * 10}deg) rotateX(${-y * 10}deg) scale(1.02)`;
+    });
+
+    document.addEventListener('mouseleave', () => {
+      const mockup = document.querySelector('.group img');
+      if (!mockup) return;
+      mockup.style.transform = `perspective(1000px) rotateY(0deg) rotateX(0deg) scale(1)`;
+    });
+  </script>
+</body></html>
