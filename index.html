@@ -4,6 +4,9 @@
   <meta charset="utf-8" />
   <meta content="width=device-width, initial-scale=1.0" name="viewport" />
   <title>Swiftlab | Engineering Scalable Excellence</title>
+  <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png">
   <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
   <style>
@@ -209,7 +212,7 @@
 <!-- TopNavBar -->
 <nav class="fixed top-0 w-full bg-background/80 backdrop-blur-xl border-b border-outline-variant/30 z-50">
   <div class="flex justify-between items-center px-gutter py-4 max-w-container-max-width mx-auto">
-    <div class="font-headline-md text-headline-md font-bold text-on-surface tracking-tighter">Swiftlab</div>
+    <div class="flex items-center gap-2 font-headline-md text-headline-md font-bold tracking-tighter"><img alt="Swiftlab Logo" class="h-8 w-8" src="images/logo-swiftlab.png" /><span class="text-on-surface"><span style="color:#e8731a">swift</span>lab</span></div>
     <div class="hidden md:flex items-center space-x-8">
       <a class="text-primary font-bold border-b-2 border-primary pb-1 font-label-md text-label-md" href="#services">Services</a>
       <a class="text-on-surface-variant font-medium hover:text-primary transition-colors duration-200 font-label-md text-label-md" href="#portfolio">Portfolio</a>
@@ -217,7 +220,7 @@
       <a class="text-on-surface-variant font-medium hover:text-primary transition-colors duration-200 font-label-md text-label-md" href="#reviews">Standards</a>
     </div>
     <div class="flex items-center space-x-4">
-      <a href="https://calendly.com/nguyen-the-trinh-ios/30min" target="_blank" rel="noopener" class="hidden md:block text-on-surface-variant font-label-md text-label-md hover:text-primary transition-colors">Contact Us</a>
+      <a href="#" onclick="document.getElementById('contact-modal').classList.remove('hidden');return false;" class="hidden md:block text-on-surface-variant font-label-md text-label-md hover:text-primary transition-colors">Contact Us</a>
       <a href="https://calendly.com/nguyen-the-trinh-ios/30min" target="_blank" rel="noopener" class="bg-primary-container text-on-primary-container px-4 py-2 rounded-xl font-label-md text-label-md font-bold hover:opacity-80 active:scale-95 transition-all">Get Started</a>
     </div>
   </div>
@@ -248,11 +251,11 @@
     <div class="relative w-full max-w-5xl mt-12 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
       <div class="relative group">
         <div class="absolute inset-0 bg-primary/10 blur-3xl rounded-full scale-75 group-hover:scale-100 transition-transform duration-700"></div>
-        <img alt="iOS Music App Interface" class="relative rounded-2xl border border-outline-variant/30 shadow-2xl transform rotate-1 group-hover:rotate-0 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida/ADBb0uhONGSBq1128KlR2Xe_wZ9an9KPiTtezEQCcFEtD124iRowWA47EDuoIb9Wtmct4Vdz9RBv6FlOue5JBF4mcNPWTI8op8ZNpC_nZMqlrJNUYUHmOwScYxsHlqYExEoQjb1741A8GxxjpciGW8Or9GL7ly7Wtq3DQiup9tkj5Kk4tmdEXjkcx86Kchy3cHlFYvWFn1Buii5TsX1WO0ypyYzw7UhOCWfSDU9ZSSXPwRtaqJBHqDWf_tHY38E" />
+        <img alt="iOS Music App Interface" class="relative rounded-2xl border border-outline-variant/30 shadow-2xl transform rotate-1 group-hover:rotate-0 transition-transform duration-500" src="images/ios-music-app.png" />
       </div>
       <div class="relative group">
         <div class="absolute inset-0 bg-tertiary/10 blur-3xl rounded-full scale-75 group-hover:scale-100 transition-transform duration-700"></div>
-        <img alt="iPad Development Environment" class="relative rounded-2xl border border-outline-variant/30 shadow-2xl transform -rotate-1 group-hover:rotate-0 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida/ADBb0ugeryCqj7vGSsLgg4CtEq9Ox4vRs9-dwsFpHyL6pQXom8figrfENUs15K3XvddqO7uU1R_Too_m3L3xSNelBvPwWcaiLrvNIM_GFDEaXj-jTwAci4VM65eXLH3-g53ZBdlbhaHDwAIjwWKEItACDobMltsv9IYFGLUsTQn4DoMzG15Eso79ejf018zjApQPv4EvPfMOVjMg2gJdQwJGIkYJXndd714LHjpli4lkkJrdBflLH_NHmqOhYg" />
+        <img alt="iPad Development Environment" class="relative rounded-2xl border border-outline-variant/30 shadow-2xl transform -rotate-1 group-hover:rotate-0 transition-transform duration-500" src="images/ipad-development.png" />
       </div>
     </div>
   </section>
@@ -388,14 +391,14 @@
       <div class="logo-marquee-fade-right"></div>
       <div class="logo-marquee-track" data-logos="8">
         <!-- Original set -->
-        <div class="marquee-item flex items-center justify-center shrink-0 px-8"><img alt="Suma Logo" class="h-10 md:h-14 w-auto opacity-70 hover:opacity-100 transition-opacity invert" src="https://lh3.googleusercontent.com/aida/ADBb0ujPyOWTR4jGbmGsGYQOLG45rduoxh3F5zDOLqXMkFqJjyD8wS3Ig3OUbanM1_-sfr6HwTt-jKIo6Oa6lP87IQhp6k_78W1DO9c_Qt-P0mw01TnwKLgEMVGGXxpbw9ifadRebo2HapateMk9j7UejWGYUeQWWp3A954FOoh7-7u1jONC6lATZmOmXp0k_p2Sxs4x5XBJWWxlVYjJ2XZt2vSo-pFobJSa7M2ApGjtAY_3YR7QIVjzD5ZqiF4" /></div>
-        <div class="marquee-item flex items-center justify-center shrink-0 px-8"><img alt="FireArt Studio Logo" class="h-10 md:h-14 w-auto opacity-70 hover:opacity-100 transition-opacity" src="https://lh3.googleusercontent.com/aida/ADBb0ugpKwRtxUaGrh_Hrz1CyVOUTk3qXHOK-49KDvEFvzVo634YMsIlagMvJL7j1YTumBHTadXp1jkBf0bNjxCHihb3oH-shzMprKL1JEbEPTXdthMbvko9PtW-WY7fcmurqUTdiAVIgK9EJA8mex_l73zsOVq0QSEAkXlPHZFiizd5JkZ9_u52JVrvMstES8HpuQYUZKr1kZ5-0fNW-VC-0amvXKdCtj1LMoB16KCSbY-_1DeuT9cCeYJH8A" /></div>
-        <div class="marquee-item flex items-center justify-center shrink-0 px-8"><img alt="TapWise Logo" class="h-10 md:h-14 w-auto opacity-70 hover:opacity-100 transition-opacity" src="https://lh3.googleusercontent.com/aida/ADBb0ujQGEv2Fq8wnQhQUuiC2wlPLKY-Z6skmWkPsPxFzltemTB71wsGieBk7zugz26D1oxWM4acALcfIkDKKpy3dSv5D2DwHAbTxNwgLvKTWNQ1C4XfqZsfPEDG4bEYaiVxNlHXN_OV--rI8KJWlt-_gIjv_4m1ZaoRqxI5_g1O8EFqm3EP4DKIcnqG9AxwIjJuX8zXjGCIG5FsUR4nauNdsVrn9SonSiAhstumLhj_ThW3VVsLBCm7B_wCOqA" /></div>
-        <div class="marquee-item flex items-center justify-center shrink-0 px-8"><img alt="Amwaly Finance Logo" class="h-10 md:h-14 w-auto opacity-70 hover:opacity-100 transition-opacity" src="https://lh3.googleusercontent.com/aida/ADBb0uhmP_z9y9Z3HoijhaRdP0LiULwDrkryisdsKkRQha37EAHf4Ja-I8ol85v1qPFE8KUaXYtLqxdG6EpE_d98catYujA3YQ_74q4aI_6bmvvKyM_mgnWwV7--T2Lw1FKjLRTfN-AGnRHhilm08kKiDFoy5TCZXIl61Kr8WLXwzYJW4yY3QHgn8XhP4O8H15E4rKvtOc0L3YErncgUYrIDS6ida8FOu1HUZhuIqjjIWOyk6I1iRSoGkxiQrac" /></div>
-        <div class="marquee-item flex items-center justify-center shrink-0 px-8"><img alt="Restoke.ai Logo" class="h-10 md:h-14 w-auto opacity-70 hover:opacity-100 transition-opacity" src="https://lh3.googleusercontent.com/aida/ADBb0ugn7OhqspwKeV0p-Vrjtvhu4pwj2Ez0E09x3KycYG_cCEitY3fVDjIb7Xh84UztVahf0doqSYM4XFHJi0_7cx_NnUohaZ5F3zLXiW8p0BdgBIJ4OFM5FFSmi4f9h7leTNyJj4w6fkyByY9FPbO6FZEjxOW4kg2v_Ztf0c9EbTYJMHMfF839Lgr-_WEzX7Tbh8A6G6AFBXTxlwU30LkyaM2QBPdKgEkTlBiN4WKAa8UFQNV9N8XvLQlbYFc" /></div>
-        <div class="marquee-item flex items-center justify-center shrink-0 px-8"><img alt="Trybe Creator Logo" class="h-12 md:h-16 w-auto opacity-70 hover:opacity-100 transition-opacity" src="https://lh3.googleusercontent.com/aida/ADBb0uhT-H4Snmpw_f36kwBX5xvEtbG2OHvvxTQRT9t6sbyaMksYAu9P1krxXoZP9LrAp5jjvz-XEGlvnLrneLcFrOTeFJBdrUNMZnp0GDVZx8qtndOB12T-F41VS0J9T82XSJx0cWzi_pt7We8KblLt_yHsoz8T-VCxPs2CIE4opi-GT9yCRkLmkXtlX7ytSlwxsD0da2AC2QkO-mzqZHfoTWj-jmAwkpDpZg5HeFJYkXugYBiDQGCtX9x1Qj4" /></div>
-        <div class="marquee-item flex items-center justify-center shrink-0 px-8"><img alt="Treazie Logo" class="h-10 md:h-14 w-auto opacity-70 hover:opacity-100 transition-opacity" src="https://lh3.googleusercontent.com/aida/ADBb0ugYmBSrl2osZPbZ3cir8wPKj7dIPAaU5JHkz8ZcYRKkGoLfAW2b-Hd2ZDXSkw2QMZYk3C4RyvwYIPKJSrdZ6FqVvT4SAXsyOjMZgj6eOlLHsoXP_VGbCq6iIvp__eWhk1uuOC0AFcym7Ja7_pvq9TU8SCdII-H1DvL0-wbCN5YiDEE-twsotPLHmaYaqePlj-obSHi-wDI63XP_fkunKT3B55F4i0nZzasO-dVNW9Z08YYKeRGAmjF9yg" /></div>
-        <div class="marquee-item flex items-center justify-center shrink-0 px-8"><img alt="Club49 Logo" class="h-10 md:h-14 w-auto opacity-70 hover:opacity-100 transition-opacity" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCHZLq0dBGoN-s9NKzkXrHl3SfnGCD8uYCkDO0NnlLxb_izszEJgTQWDJbmTyKzASthGL7yRi-LvqwdkIJrfrGgbE1huttlUjW6hqSoLdhdpmpXlgxGFSj-ccClxfXqOV81hC825D-hYbWDk4BswaWchno4Ttt3sUek_RHkjVcjMAs-efjdDWzQdvg9_biMCdNcFl_RAQvFJ31kBZ-gGAuDSTWkUNeAXrFP2uGc7978gfPwkLsG4bAQXYDrAWQCZCnXCROPH7ua29o" /></div>
+        <div class="marquee-item flex items-center justify-center shrink-0 px-8"><img alt="Suma Logo" class="h-10 md:h-14 w-auto opacity-70 hover:opacity-100 transition-opacity invert" src="images/logo-suma.png" /></div>
+        <div class="marquee-item flex items-center justify-center shrink-0 px-8"><img alt="FireArt Studio Logo" class="h-10 md:h-14 w-auto opacity-70 hover:opacity-100 transition-opacity" src="images/logo-fireart.png" /></div>
+        <div class="marquee-item flex items-center justify-center shrink-0 px-8"><img alt="TapWise Logo" class="h-10 md:h-14 w-auto opacity-70 hover:opacity-100 transition-opacity" src="images/logo-tapwise.png" /></div>
+        <div class="marquee-item flex items-center justify-center shrink-0 px-8"><img alt="Amwaly Finance Logo" class="h-10 md:h-14 w-auto opacity-70 hover:opacity-100 transition-opacity" src="images/logo-amwaly.png" /></div>
+        <div class="marquee-item flex items-center justify-center shrink-0 px-8"><img alt="Restoke.ai Logo" class="h-10 md:h-14 w-auto opacity-70 hover:opacity-100 transition-opacity" src="images/logo-restoke.png" /></div>
+        <div class="marquee-item flex items-center justify-center shrink-0 px-8"><img alt="Trybe Creator Logo" class="h-12 md:h-16 w-auto opacity-70 hover:opacity-100 transition-opacity" src="images/logo-trybe-creator.png" /></div>
+        <div class="marquee-item flex items-center justify-center shrink-0 px-8"><img alt="Treazie Logo" class="h-10 md:h-14 w-auto opacity-70 hover:opacity-100 transition-opacity" src="images/logo-treazie.png" /></div>
+        <div class="marquee-item flex items-center justify-center shrink-0 px-8"><img alt="Club49 Logo" class="h-10 md:h-14 w-auto opacity-70 hover:opacity-100 transition-opacity" src="images/logo-club49.png" /></div>
       </div>
     </div>
     </div>
@@ -425,7 +428,7 @@
           </div>
         </div>
         <div class="flex-1 w-full overflow-hidden rounded-2xl">
-          <img alt="Trybe - SaaS Application Case Study" class="w-full rounded-2xl border border-outline-variant/30 shadow-2xl group-hover:scale-[1.03] transition-transform duration-500" src="https://lh3.googleusercontent.com/aida/ADBb0uh8yM5lFimbF3_mllusg-5p_8p1F_xU5_nEdDUMPdU71HwXMvXpecp-ePuebR1JbVjIXqmob8YyPyCYdILYoMdvo8QyCay_e4EqtbzW638EEOIaoGI9aaoSCu47ir5xk-nkzXHUAHDVg01sU-JbRiHfalCaksRlo70g84S6DIGErpyj9qnQnU0h4hlNHx4p9K12Ogxoyo73psulu1m5k--Ng1pmNq4p64wBZVpburpt4L7dSl4mIfSA48g" />
+          <img alt="Trybe - SaaS Application Case Study" class="w-full rounded-2xl border border-outline-variant/30 shadow-2xl group-hover:scale-[1.03] transition-transform duration-500" src="images/trybe-case-study.png" />
         </div>
       </a>
       <!-- Case Study 2: Bodo -->
@@ -448,7 +451,7 @@
           </div>
         </div>
         <div class="flex-1 w-full overflow-hidden rounded-2xl">
-          <img alt="Bodo - Screen Time Control Case Study" class="w-full rounded-2xl border border-outline-variant/30 shadow-2xl group-hover:scale-[1.03] transition-transform duration-500" src="https://lh3.googleusercontent.com/aida/ADBb0uiDEZqOBH-TFYbz5tsoYkeG1NMu5bMswsn34QMplT9JtFA7EMYo9VfmTb4svNQIdjkRDrY7Lhg-JyExBLHwugJnX2UdSZG1XjJ_LOFhJlpox3LxnXn9gBaLQbn6Uqt5PuukoNMYpDxsgGrPNXirJMoLAhDpC-YKEm48HbUH78U3erQCo0VXatNHVv2z2_mAGwjHZwBCGzZ7F4eG2YdgDfbRPyPNoYr3pLcJBNad1mWnB02YOacvxJlLxh4" />
+          <img alt="Bodo - Screen Time Control Case Study" class="w-full rounded-2xl border border-outline-variant/30 shadow-2xl group-hover:scale-[1.03] transition-transform duration-500" src="images/bodo-case-study.png" />
         </div>
       </a>
     </div>
@@ -670,8 +673,16 @@
 <footer class="bg-surface-container-lowest border-t border-outline-variant">
   <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 px-gutter py-12 max-w-container-max-width mx-auto">
     <div class="flex flex-col gap-4">
-      <div class="font-headline-md text-headline-md font-bold text-on-surface">Swiftlab</div>
+      <div class="flex items-center gap-2 font-headline-md text-headline-md font-bold"><img alt="Swiftlab Logo" class="h-8 w-8" src="images/logo-swiftlab.png" /><span class="text-on-surface"><span style="color:#e8731a">swift</span>lab</span></div>
       <p class="font-body-md text-body-md text-on-secondary-container">Engineering elite native experiences for the next generation of industry leaders.</p>
+      <a class="font-label-sm text-label-sm text-on-secondary-container hover:text-surface-tint transition-colors flex items-center gap-2" href="mailto:tristan@swiftlabteam.com">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75"/></svg>
+        tristan@swiftlabteam.com
+      </a>
+      <a class="font-label-sm text-label-sm text-on-secondary-container hover:text-surface-tint transition-colors flex items-center gap-2" href="tel:+8439330652">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z"/></svg>
+        +84 393 306 523
+      </a>
     </div>
     <div class="flex flex-col gap-4">
       <span class="font-label-sm text-label-sm font-bold text-primary uppercase">Company</span>
@@ -736,6 +747,7 @@
 
   // Smooth scroll for anchor links
   document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    if (anchor.getAttribute('href') === '#') return;
     anchor.addEventListener('click', function (e) {
       e.preventDefault();
       const target = document.querySelector(this.getAttribute('href'));
@@ -744,6 +756,82 @@
       }
     });
   });
+</script>
+
+<!-- Contact Modal -->
+<div id="contact-modal" class="hidden fixed inset-0 z-[100] flex items-center justify-center p-4">
+  <div class="absolute inset-0 bg-black/70 backdrop-blur-sm" onclick="document.getElementById('contact-modal').classList.add('hidden')"></div>
+  <div class="relative bg-surface-container-lowest border border-outline-variant/30 rounded-2xl p-8 w-full max-w-lg shadow-2xl">
+    <button onclick="document.getElementById('contact-modal').classList.add('hidden')" class="absolute top-4 right-4 text-on-surface-variant hover:text-on-surface transition-colors text-2xl leading-none">&times;</button>
+    <h3 class="font-headline-md text-headline-md font-bold text-on-surface mb-2">Get in Touch</h3>
+    <p class="font-body-md text-body-md text-on-secondary-container mb-6">We'll get back to you within 24 hours.</p>
+    <form id="contact-form" class="flex flex-col gap-4" onsubmit="return handleContactSubmit(event)">
+      <input type="text" name="name" required placeholder="Your Name" class="bg-surface-container border border-outline-variant/30 rounded-xl px-4 py-3 text-on-surface placeholder:text-on-surface-variant/50 font-body-md focus:outline-none focus:border-primary transition-colors" />
+      <input type="email" name="email" required placeholder="Your Email" class="bg-surface-container border border-outline-variant/30 rounded-xl px-4 py-3 text-on-surface placeholder:text-on-surface-variant/50 font-body-md focus:outline-none focus:border-primary transition-colors" />
+      <select name="service" class="bg-surface-container border border-outline-variant/30 rounded-xl px-4 py-3 text-on-surface font-body-md focus:outline-none focus:border-primary transition-colors">
+        <option value="" disabled selected>Select a Service</option>
+        <option value="build-new-app">Build New App</option>
+        <option value="ongoing-support">On Going Support</option>
+        <option value="consultant">Consultant</option>
+      </select>
+      <textarea name="message" required rows="4" placeholder="Tell us about your project..." class="bg-surface-container border border-outline-variant/30 rounded-xl px-4 py-3 text-on-surface placeholder:text-on-surface-variant/50 font-body-md focus:outline-none focus:border-primary transition-colors resize-none"></textarea>
+      <button type="submit" class="bg-primary-container text-on-primary-container px-6 py-3 rounded-xl font-headline-md text-headline-md font-bold hover:scale-[1.02] transition-transform">Send Message</button>
+    </form>
+    <div id="contact-success" class="hidden text-center py-8">
+      <div class="text-4xl mb-4">&#10003;</div>
+      <h4 class="font-headline-md text-headline-md font-bold text-on-surface mb-2">Message Sent!</h4>
+      <p class="font-body-md text-body-md text-on-secondary-container">We'll respond to your inquiry shortly.</p>
+    </div>
+  </div>
+</div>
+
+<script>
+function handleContactSubmit(e) {
+  e.preventDefault();
+  const form = document.getElementById('contact-form');
+  const btn = form.querySelector('button[type="submit"]');
+  btn.disabled = true;
+  btn.textContent = 'Sending...';
+
+  fetch('https://api.web3forms.com/submit', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      access_key: '0816d03c-c9c9-4a48-8b36-e23c4b9030f5',
+      name: form.name.value,
+      email: form.email.value,
+      service: form.service.value || 'Not specified',
+      message: form.message.value,
+      subject: 'New Inquiry from ' + form.name.value + ' - Swiftlab',
+      from_name: 'Swiftlab Contact Form'
+    })
+  })
+  .then(function(res) { return res.json(); })
+  .then(function(data) {
+    if (data.success) {
+      form.classList.add('hidden');
+      document.getElementById('contact-success').classList.remove('hidden');
+      setTimeout(function() {
+        document.getElementById('contact-modal').classList.add('hidden');
+        form.classList.remove('hidden');
+        document.getElementById('contact-success').classList.add('hidden');
+        form.reset();
+        btn.disabled = false;
+        btn.textContent = 'Send Message';
+      }, 3000);
+    } else {
+      alert('Something went wrong. Please try again.');
+      btn.disabled = false;
+      btn.textContent = 'Send Message';
+    }
+  })
+  .catch(function() {
+    alert('Something went wrong. Please try again.');
+    btn.disabled = false;
+    btn.textContent = 'Send Message';
+  });
+  return false;
+}
 </script>
 
 </body>
